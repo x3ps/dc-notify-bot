@@ -9,7 +9,7 @@
 # installs the resulting binary into $out/bin.
 buildGoModule {
   pname = "dc-notify-bot";
-  version = "0.0.1";
+  version = "0.0.2";
 
   # lib.cleanSource filters out VCS metadata, editor temp files, and
   # other non-source artifacts so that Nix store paths are
