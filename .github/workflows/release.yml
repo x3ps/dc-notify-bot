@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64-linux
+            runs-on: ubuntu-latest
+          - arch: aarch64-linux
+            runs-on: ubuntu-24.04-arm
+
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build binary
+        run: |
+          nix build .#dc-notify-bot-bin --print-build-logs
+          cp result/bin/dc-notify-bot dc-notify-bot-${{ matrix.arch }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dc-notify-bot-${{ matrix.arch }}
+          path: dc-notify-bot-${{ matrix.arch }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: artifacts/
+
+      - name: Generate checksums
+        run: |
+          cd artifacts
+          sha256sum dc-notify-bot-* > SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            artifacts/dc-notify-bot-x86_64-linux
+            artifacts/dc-notify-bot-aarch64-linux
+            artifacts/SHA256SUMS
