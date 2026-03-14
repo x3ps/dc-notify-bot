@@ -25,7 +25,6 @@
           # wrapper — used inside the Docker image where
           # deltachat-rpc-server is installed separately.
           dc-notify-bot-bin = dcNotifyBot.overrideAttrs (_: {
-            nativeBuildInputs = [];
             postInstall = "";
           });
 
