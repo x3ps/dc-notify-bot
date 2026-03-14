@@ -191,4 +191,45 @@ curl -X POST http://127.0.0.1:8080/webhook \
 
 ## 许可证
 
-[Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/2.0/)
+本项目采用 **GNU Affero General Public License v3.0** 授权。
+详见 [LICENSE](./LICENSE)。
+
+## 第三方库（Go 模块）
+
+| 库 | 版本 | 许可证 | 作者 / 版权持有者 |
+|---|---|---|---|
+| `github.com/chatmail/rpc-client-go/v2` | `v2.0.1` | MPL-2.0 | Chatmail contributors |
+| `github.com/deltachat-bot/deltabot-cli-go/v2` | `v2.0.0-20260308000653-bc7d68bb83c1` | MPL-2.0 | DeltaChat Bot contributors |
+| `github.com/spf13/cobra` | `v1.8.0` | Apache-2.0 | spf13/cobra maintainers and contributors |
+| `github.com/cpuguy83/go-md2man/v2` | `v2.0.3` | MIT | Brian Goff and contributors |
+| `github.com/creachadair/jrpc2` | `v1.1.2` | BSD-3-Clause | Michael J. Fromberger |
+| `github.com/creachadair/mds` | `v0.8.2` | BSD-2-Clause | Michael J. Fromberger |
+| `github.com/davecgh/go-spew` | `v1.1.1` | ISC | Dave Collins |
+| `github.com/fortytw2/leaktest` | `v1.3.0` | BSD-3-Clause | The Go Authors |
+| `github.com/google/go-cmp` | `v0.6.0` | BSD-3-Clause | The Go Authors |
+| `github.com/inconshreveable/mousetrap` | `v1.1.0` | Apache-2.0 | inconshreveable contributors |
+| `github.com/kr/text` | `v0.2.0` | MIT | Keith Rarick |
+| `github.com/pmezard/go-difflib` | `v1.0.0` | BSD-2-Clause | Patrick Mezard |
+| `github.com/russross/blackfriday/v2` | `v2.1.0` | BSD-2-Clause | Russ Ross and contributors |
+| `github.com/spf13/pflag` | `v1.0.5` | BSD-3-Clause | Alex Ogier; The Go Authors |
+| `github.com/stretchr/testify` | `v1.8.2` | MIT | Mat Ryer, Tyler Bunnell, and contributors |
+| `go.uber.org/goleak` | `v1.2.0` | MIT | Uber Technologies, Inc. and contributors |
+| `go.uber.org/multierr` | `v1.11.0` | MIT | Uber Technologies, Inc. and contributors |
+| `go.uber.org/zap` | `v1.26.0` | MIT | Uber Technologies, Inc. and contributors |
+| `golang.org/x/sync` | `v0.6.0` | BSD-3-Clause | The Go Authors |
+| `gopkg.in/check.v1` | `v0.0.0-20161208181325-20d25e280405` | BSD-2-Clause | Gustavo Niemeyer |
+| `gopkg.in/yaml.v3` | `v3.0.1` | MIT or Apache-2.0 | Kirill Simonov and contributors |
+
+## 第三方产品与工具
+
+| 产品 | 用途 | 许可证 | 作者 / 维护者 |
+|---|---|---|---|
+| `deltachat-rpc-server` | Bot 使用的运行时 RPC 后端 | MPL-2.0 | Delta Chat / Chatmail contributors |
+| Go toolchain (`go`) | 构建与测试工具链 | BSD-3-Clause | The Go Authors |
+| Nixpkgs (`NixOS/nixpkgs`) | Nix 构建/开发环境的包来源 | MIT | Nixpkgs contributors |
+| `numtide/flake-utils` | Flake 输出辅助工具 | MIT | Numtide contributors |
+| Debian `bookworm-slim` images | Docker 构建/运行时基础镜像 | 多种自由软件许可证 | Debian contributors |
+
+备注：
+- Go 模块版本来自 `go list -m all`。
+- 许可证和作者信息基于上游 `LICENSE` 元数据和包清单。

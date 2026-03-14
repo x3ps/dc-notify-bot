@@ -191,4 +191,45 @@ curl -X POST http://127.0.0.1:8080/webhook \
 
 ## مجوز
 
-[Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/2.0/)
+این پروژه تحت **GNU Affero General Public License v3.0** منتشر شده است.
+به [LICENSE](./LICENSE) مراجعه کنید.
+
+## کتابخانه‌های شخص ثالث (ماژول‌های Go)
+
+| کتابخانه | نسخه | مجوز | نویسندگان / دارندگان حق نشر |
+|---|---|---|---|
+| `github.com/chatmail/rpc-client-go/v2` | `v2.0.1` | MPL-2.0 | Chatmail contributors |
+| `github.com/deltachat-bot/deltabot-cli-go/v2` | `v2.0.0-20260308000653-bc7d68bb83c1` | MPL-2.0 | DeltaChat Bot contributors |
+| `github.com/spf13/cobra` | `v1.8.0` | Apache-2.0 | spf13/cobra maintainers and contributors |
+| `github.com/cpuguy83/go-md2man/v2` | `v2.0.3` | MIT | Brian Goff and contributors |
+| `github.com/creachadair/jrpc2` | `v1.1.2` | BSD-3-Clause | Michael J. Fromberger |
+| `github.com/creachadair/mds` | `v0.8.2` | BSD-2-Clause | Michael J. Fromberger |
+| `github.com/davecgh/go-spew` | `v1.1.1` | ISC | Dave Collins |
+| `github.com/fortytw2/leaktest` | `v1.3.0` | BSD-3-Clause | The Go Authors |
+| `github.com/google/go-cmp` | `v0.6.0` | BSD-3-Clause | The Go Authors |
+| `github.com/inconshreveable/mousetrap` | `v1.1.0` | Apache-2.0 | inconshreveable contributors |
+| `github.com/kr/text` | `v0.2.0` | MIT | Keith Rarick |
+| `github.com/pmezard/go-difflib` | `v1.0.0` | BSD-2-Clause | Patrick Mezard |
+| `github.com/russross/blackfriday/v2` | `v2.1.0` | BSD-2-Clause | Russ Ross and contributors |
+| `github.com/spf13/pflag` | `v1.0.5` | BSD-3-Clause | Alex Ogier; The Go Authors |
+| `github.com/stretchr/testify` | `v1.8.2` | MIT | Mat Ryer, Tyler Bunnell, and contributors |
+| `go.uber.org/goleak` | `v1.2.0` | MIT | Uber Technologies, Inc. and contributors |
+| `go.uber.org/multierr` | `v1.11.0` | MIT | Uber Technologies, Inc. and contributors |
+| `go.uber.org/zap` | `v1.26.0` | MIT | Uber Technologies, Inc. and contributors |
+| `golang.org/x/sync` | `v0.6.0` | BSD-3-Clause | The Go Authors |
+| `gopkg.in/check.v1` | `v0.0.0-20161208181325-20d25e280405` | BSD-2-Clause | Gustavo Niemeyer |
+| `gopkg.in/yaml.v3` | `v3.0.1` | MIT or Apache-2.0 | Kirill Simonov and contributors |
+
+## محصولات و ابزارهای شخص ثالث
+
+| محصول | نقش | مجوز | نویسندگان / نگهدارندگان |
+|---|---|---|---|
+| `deltachat-rpc-server` | بک‌اند RPC زمان اجرا مورد استفاده توسط ربات | MPL-2.0 | Delta Chat / Chatmail contributors |
+| Go toolchain (`go`) | زنجیره ابزار ساخت و آزمون | BSD-3-Clause | The Go Authors |
+| Nixpkgs (`NixOS/nixpkgs`) | منبع بسته برای ساخت‌های Nix و محیط توسعه | MIT | Nixpkgs contributors |
+| `numtide/flake-utils` | ابزارهای کمکی خروجی flake | MIT | Numtide contributors |
+| Debian `bookworm-slim` images | تصویر پایه ساخت/زمان اجرا Docker | مجوزهای نرم‌افزار آزاد ترکیبی | Debian contributors |
+
+یادداشت‌ها:
+- نسخه‌های ماژول Go از `go list -m all` گرفته شده‌اند.
+- مجوزها و نویسندگان بر اساس متادیتای `LICENSE` و مانیفست‌های بسته‌های بالادستی هستند.
