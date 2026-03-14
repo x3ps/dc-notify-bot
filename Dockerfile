@@ -38,4 +38,4 @@ ENV NOTIFY_BOT_LISTEN=0.0.0.0:8080
 EXPOSE 8080
 VOLUME ["/data"]
 WORKDIR /data
-CMD ["dc-notify-bot", "serve"]
+CMD ["dc-notify-bot", "-f", "/data", "serve"]
