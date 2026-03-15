@@ -189,6 +189,14 @@ curl -X POST http://127.0.0.1:8080/webhook \
   -d '{"text":"hello"}'
 ```
 
+## TODO
+
+- [ ] بازآرایی (refactor) پردازش درخواست‌های webhook به سمت provider-specific handlers (اعتبارسنجی مشترک + لایهٔ formatter برای providerها).
+- [ ] افزودن webhookهای path-based (`/webhook/<provider>`) همراه با حفظ `POST /webhook` به‌عنوان fallback عمومی.
+- [ ] پیاده‌سازی endpoint مربوط به Miniflux در گام اول (`POST /webhook/miniflux`) با نرمال‌سازی payload به پیام‌های خوانای Delta Chat.
+- [ ] افزودن تست برای routing و adapterهای provider (مسیرهای موفق + payload نامعتبر + provider ناشناخته).
+- [ ] مستندسازی مثال‌های provider و یادداشت‌های مهاجرت برای کاربرانی که از payloadهای عمومی به سبک Slack مهاجرت می‌کنند.
+
 ## مجوز
 
 این پروژه تحت **GNU Affero General Public License v3.0** منتشر شده است.

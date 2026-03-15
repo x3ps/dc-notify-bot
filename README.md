@@ -189,6 +189,14 @@ curl -X POST http://127.0.0.1:8080/webhook \
   -d '{"text":"hello"}'
 ```
 
+## TODO
+
+- [ ] Refactor webhook request handling into provider-specific handlers (shared validation + provider formatter layer).
+- [ ] Add path-based webhooks (`/webhook/<provider>`) while keeping `POST /webhook` as a generic fallback.
+- [ ] Implement Miniflux provider endpoint first (`POST /webhook/miniflux`) with payload normalization to readable Delta Chat messages.
+- [ ] Add tests for routing and provider adapters (success paths + malformed payloads + unknown providers).
+- [ ] Document provider examples and migration notes for users moving from generic Slack-style payloads.
+
 ## License
 
 This project is licensed under the **GNU Affero General Public License v3.0**.

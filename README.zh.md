@@ -189,6 +189,14 @@ curl -X POST http://127.0.0.1:8080/webhook \
   -d '{"text":"hello"}'
 ```
 
+## TODO
+
+- [ ] 将 webhook 请求处理重构为 provider-specific handlers（共享校验 + Provider 格式化层）。
+- [ ] 增加 path-based webhook（`/webhook/<provider>`），并保留 `POST /webhook` 作为通用 fallback。
+- [ ] 优先实现 Miniflux 端点（`POST /webhook/miniflux`），将其 payload 规范化为可读的 Delta Chat 消息。
+- [ ] 为路由与 provider 适配器补充测试（成功路径 + 非法 payload + 未知 provider）。
+- [ ] 补充 provider 示例与迁移说明，帮助用户从通用 Slack 风格 payload 迁移。
+
 ## 许可证
 
 本项目采用 **GNU Affero General Public License v3.0** 授权。
