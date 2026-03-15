@@ -39,7 +39,7 @@
               pkgs.cacert
             ];
             config = {
-              Cmd = [ "${dcNotifyBot}/bin/dc-notify-bot" "serve" ];
+              Cmd = [ "${dcNotifyBot}/bin/dc-notify-bot" "-f" "/data" "serve" ];
               Env = [
                 # SSL_CERT_FILE is required because the minimal image
                 # has no system certificate store.
