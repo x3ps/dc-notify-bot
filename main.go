@@ -547,6 +547,22 @@ func mergeRecipients(singular string, plural []string) []string {
 	return result
 }
 
+// sanitizeFilename returns a safe basename for use as a temp file name.
+// It strips path components (including Windows-style backslashes) and
+// falls back to "attachment" (with the original extension) for degenerate inputs.
+func sanitizeFilename(name string) string {
+	ext := filepath.Ext(name)
+	name = strings.ReplaceAll(name, "\\", "/")
+	base := filepath.Base(strings.TrimSpace(name))
+	if base == "." || base == ".." || base == "" {
+		if len(ext) > 1 {
+			return "attachment" + ext
+		}
+		return "attachment"
+	}
+	return base
+}
+
 // parseMultipartPayload extracts text, recipients, and an optional
 // file upload from a multipart/form-data request. At least one of
 // "text" or "file" must be present. Multiple "recipient" form fields
@@ -571,19 +587,25 @@ func parseMultipartPayload(r *http.Request, maxBytes int64) (text string, recipi
 
 	if file != nil {
 		defer file.Close()
-		ext := filepath.Ext(header.Filename)
-		tmp, tmpErr := os.CreateTemp("", "dc-notify-*"+ext)
+		safeName := sanitizeFilename(header.Filename)
+		tmpDir, tmpErr := os.MkdirTemp("", "dc-notify-*")
 		if tmpErr != nil {
+			return "", nil, "", nil, fmt.Errorf("failed to create temp dir: %w", tmpErr)
+		}
+		tmpPath := filepath.Join(tmpDir, safeName)
+		tmp, tmpErr := os.Create(tmpPath)
+		if tmpErr != nil {
+			os.RemoveAll(tmpDir)
 			return "", nil, "", nil, fmt.Errorf("failed to create temp file: %w", tmpErr)
 		}
 		if _, cpErr := io.Copy(tmp, file); cpErr != nil {
 			tmp.Close()
-			os.Remove(tmp.Name())
+			os.RemoveAll(tmpDir)
 			return "", nil, "", nil, fmt.Errorf("failed to write temp file: %w", cpErr)
 		}
 		tmp.Close()
-		filePath = tmp.Name()
-		cleanup = func() { os.Remove(filePath) }
+		filePath = tmpPath
+		cleanup = func() { os.RemoveAll(tmpDir) }
 	}
 
 	if text == "" {

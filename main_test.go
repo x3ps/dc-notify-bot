@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"path/filepath"
 	"sync"
 	"testing"
 
@@ -147,6 +148,29 @@ func TestParseJSONPayload(t *testing.T) {
 	}
 }
 
+func TestSanitizeFilename(t *testing.T) {
+	cases := []struct {
+		input string
+		want  string
+	}{
+		{"report.pdf", "report.pdf"},
+		{"../../etc/passwd", "passwd"},
+		{"/etc/shadow", "shadow"},
+		{"C:\\temp\\a.txt", "a.txt"},
+		{"", "attachment"},
+		{".", "attachment"},
+		{"..", "attachment"},
+		{"  spaces.txt  ", "spaces.txt"},
+		{"../foo.png", "foo.png"},
+	}
+	for _, tc := range cases {
+		got := sanitizeFilename(tc.input)
+		if got != tc.want {
+			t.Errorf("sanitizeFilename(%q) = %q, want %q", tc.input, got, tc.want)
+		}
+	}
+}
+
 func TestParseMultipartPayload(t *testing.T) {
 	// Helper to build a multipart request. fields is a list of
 	// key-value pairs to support repeated keys (e.g. multiple recipients).
@@ -198,6 +222,9 @@ func TestParseMultipartPayload(t *testing.T) {
 		if filePath == "" {
 			t.Fatal("filePath should not be empty")
 		}
+		if filepath.Base(filePath) != "test.png" {
+			t.Errorf("filePath base = %q, want %q", filepath.Base(filePath), "test.png")
+		}
 		data, readErr := os.ReadFile(filePath)
 		if readErr != nil {
 			t.Fatalf("failed to read temp file: %v", readErr)
@@ -205,11 +232,15 @@ func TestParseMultipartPayload(t *testing.T) {
 		if string(data) != "fake-png-data" {
 			t.Errorf("file content = %q, want %q", data, "fake-png-data")
 		}
+		tmpDir := filepath.Dir(filePath)
 		if cleanup != nil {
 			cleanup()
 		}
 		if _, err := os.Stat(filePath); !os.IsNotExist(err) {
 			t.Error("temp file should have been removed by cleanup")
+		}
+		if _, err := os.Stat(tmpDir); !os.IsNotExist(err) {
+			t.Error("temp dir should have been removed by cleanup")
 		}
 	})
 
@@ -224,6 +255,20 @@ func TestParseMultipartPayload(t *testing.T) {
 		}
 		if filePath == "" {
 			t.Error("filePath should not be empty")
+		}
+		if cleanup != nil {
+			cleanup()
+		}
+	})
+
+	t.Run("file preserves original name", func(t *testing.T) {
+		req := makeRequest([][2]string{{"text", "hi"}}, "report.pdf", []byte("pdf-data"))
+		_, _, filePath, cleanup, err := parseMultipartPayload(req, 1<<20)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if filepath.Base(filePath) != "report.pdf" {
+			t.Errorf("filePath base = %q, want %q", filepath.Base(filePath), "report.pdf")
 		}
 		if cleanup != nil {
 			cleanup()
