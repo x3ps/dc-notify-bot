@@ -38,6 +38,10 @@
               dcNotifyBot
               pkgs.cacert
             ];
+            extraCommands = ''
+              mkdir -p tmp
+              chmod 1777 tmp
+            '';
             config = {
               Cmd = [ "${dcNotifyBot}/bin/dc-notify-bot" "-f" "/data" "serve" ];
               Env = [

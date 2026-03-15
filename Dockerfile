@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certifi
 # account database).
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+    && mkdir -p /tmp \
+    && chmod 1777 /tmp \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /dc-notify-bot /usr/local/bin/
 COPY --from=fetcher /usr/local/bin/deltachat-rpc-server /usr/local/bin/
